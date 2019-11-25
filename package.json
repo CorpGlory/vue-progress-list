@@ -1,0 +1,22 @@
+{
+  "name": "vue-progress-list",
+  "version": "1.0.0",
+  "description": "Show list of progress items by mapping your data.",
+  "main": "./dist/vue-progress-list.common.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CorpGlory/vue-progress-list.git"
+  },
+  "keywords": [
+    "progress-list"
+  ],
+  "author": "CorpGlory Inc.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CorpGlory/vue-progress-list/issues"
+  },
+  "homepage": "https://github.com/CorpGlory/vue-progress-list#readme"
+}
