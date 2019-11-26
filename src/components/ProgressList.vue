@@ -4,7 +4,9 @@
       <div class="center" v-for="(item) in items" :key="item.title">
         <progress-item
           :item="item"
-          :maxValue=config.maxValue
+          :config=config
+          :thresholds=thresholds
+          :thresholdConfig=thresholdConfig
         ></progress-item>
       </div>
     </div>
@@ -13,24 +15,31 @@
 
 <script lang="ts">
 import ProgressItem from './ProgressItem.vue';
-import { Component, Vue, Prop } from 'vue-property-decorator';
 
-// TODO: move types to a separate file
-export type ProgressItemType = {
-  title: string,
-  value: number
+import { Item, Thresholds, ThresholdConfig, Config } from './types';
+
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+
+const DEFAULT_THRESHOLD_CONFIG = {
+  lowerColor: 'green',
+  middleColor: 'orange',
+  upperColor: 'red'
 }
 
 @Component({ components: { ProgressItem } })
 export default class ProgressListPanel extends Vue {
 
   @Prop({ required: true })
-  items!: ProgressItemType[];
+  items!: Item[];
 
   @Prop({ required: true })
-  config!: number;
+  config!: Config;
+
+  @Prop({ required: false })
+  thresholds!: Thresholds;
+
+  @Prop({ required: false, default: () => DEFAULT_THRESHOLD_CONFIG })
+  thresholdConfig!: ThresholdConfig;
 
 }
 </script>
-
-

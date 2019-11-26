@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "Show list of progress items by mapping your data.",
   "author": "CorpGlory Inc.",
-  "private": true,
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build"

@@ -5,35 +5,56 @@
       <div
         v-bind:style="{
           width: progress + '%',
+          backgroundColor: getItemColor(item),
+          opacity: config.opacity
         }"
         class="progress-bar-line"
       />
-      <span
-        style="margin-top: -15px;"
-        class="list-item-value progress-bar-value"
-      >
-        {{ progress }}
+      <span class="list-item-value progress-bar-value">
+        {{ progress }}%
       </span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { ProgressItemType } from './ProgressList.vue';
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Item, Config, Thresholds, ThresholdConfig } from './types';
 
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 @Component
 export default class ProgressItem extends Vue {
 
   @Prop({ required: true })
-  item!: ProgressItemType;
+  item!: Item;
 
   @Prop({ required: true })
-  maxValue!: number;
+  config!: Config;
+
+  @Prop({required: false})
+  thresholds!: Thresholds;
+
+  @Prop({required: false})
+  thresholdConfig!: ThresholdConfig;
 
   get progress(): number {
-    return 100 * this.item.value / this.maxValue;
+    return 100 * this.item.value / this.config.maxValue;
+  }
+
+  getItemColor(item: Item): string {
+    if(this.thresholds === undefined) {
+      return item.backgroundColor;
+    } else {
+      if(item.value < this.thresholds.lowerValue){
+        return this.thresholdConfig.lowerColor;
+      } else if(item.value >= this.thresholds.lowerValue && item.value <= this.thresholds.upperValue) {
+        return this.thresholdConfig.middleColor;
+      } else if(item.value > this.thresholds.upperValue) {
+        return this.thresholdConfig.upperColor;
+      } else {
+        throw new Error('Cant get item color');
+      }
+    }
   }
 
 }
@@ -45,7 +66,7 @@ export default class ProgressItem extends Vue {
 }
 .list-item {
   position: relative;
-  height: 25px;
+  height: 30px;
 }
 
 .list-item-content {
@@ -69,11 +90,12 @@ export default class ProgressItem extends Vue {
   background: darkgreen;
 }
 
-.list-item-content .list-item-title {
-  z-index: 1;
+.list-item .progress-bar-value {
+  margin-top: -15px;
 }
 
-.options-tab .section {
-  margin-right: 1rem
+.list-item .list-item-title {
+  text-align: left;
+  z-index: 1;
 }
 </style>
