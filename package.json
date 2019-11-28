@@ -1,12 +1,13 @@
 {
   "name": "vue-progress-list",
   "version": "0.1.0",
+  "main": "./dist/vue-progress-list.common.js",
   "description": "Show list of progress items by mapping your data.",
   "author": "CorpGlory Inc.",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "build": "vue-cli-service build --target lib --name vue-progress-list src/main.ts"
   },
   "dependencies": {
     "core-js": "^3.3.2",
