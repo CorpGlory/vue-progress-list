@@ -4,7 +4,7 @@
 
 1. Install using npm: `npm install CorpGlory/vue-progress-list`
 2. Import the component: `import VueProgressList from 'vue-progress-list';`
-3. Import styles in main project file (`src/main.js` / `src/main.js`): `import 'vue-progress-list/dist/vue-progress-list.css';`
+3. Import styles in main project file (`src/main.js` / `src/main.ts`): `import 'vue-progress-list/dist/vue-progress-list.css';`
 4. [Register](https://vuejs.org/v2/guide/components-registration.html) the component globally or in a separate component
 
 ## Usage example
