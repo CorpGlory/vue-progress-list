@@ -5,8 +5,12 @@
         <progress-item
           :item="item"
           :config=config
+          :threshold=threshold
           :thresholds=thresholds
-          :thresholdConfig=thresholdConfig
+          :thresholdColors=thresholdColors
+          :opacity=opacity
+          :maxValue=maxValue
+          :valueFormat=valueFormat
         ></progress-item>
       </div>
     </div>
@@ -16,15 +20,10 @@
 <script lang="ts">
 import ProgressItem from './ProgressItem.vue';
 
-import { Item, Thresholds, ThresholdConfig, Config } from './types';
+import { ValueFormat, Item, Threshold, Thresholds, ThresholdColors, Config } from './types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
-const DEFAULT_THRESHOLD_CONFIG = {
-  lowerColor: 'green',
-  middleColor: 'orange',
-  upperColor: 'red'
-}
 
 @Component({ components: { ProgressItem } })
 export default class ProgressListPanel extends Vue {
@@ -36,10 +35,22 @@ export default class ProgressListPanel extends Vue {
   config!: Config;
 
   @Prop({ required: false })
+  maxValue!: number;
+
+  @Prop({ required: false })
+  opacity!: number;
+
+  @Prop({ required: false })
+  threshold!: Threshold;
+
+  @Prop({ required: false })
   thresholds!: Thresholds;
 
-  @Prop({ required: false, default: () => DEFAULT_THRESHOLD_CONFIG })
-  thresholdConfig!: ThresholdConfig;
+  @Prop({ required: false })
+  valueFormat!: ValueFormat;
+
+  @Prop({ required: false })
+  thresholdColors!: ThresholdColors;
 
 }
 </script>

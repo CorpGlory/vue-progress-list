@@ -26,18 +26,47 @@ Result:
 ![image](https://user-images.githubusercontent.com/47055832/70167248-5a7ad300-16d7-11ea-96ac-f5311dc58b59.png)
 
 ## Props
-- `items` — array of configs for each progress bar, e.g: 
+- `items` — (required) array of configs for each progress bar, e.g:
 ```
 :items=[
-  { title: 'Foo', value: 1, backgroundColor: 'green' }, 
+  { title: 'Foo', value: 1, backgroundColor: 'green' },
   { title: 'Bar', value: 100, backgroundColor: 'red' }
 ]
 ```
-- `config` — progress-list config, e.g:
+- `config` — (required) progress-list config, e.g:
 ```
 :config={ maxValue: 100 }
 ```
+- `maxValue` - (optional) maximum of item`s value, e.g:
+```
+:maxValue=100
+```
+- `opacity` - (optional) css stype for progress bars, e.g:
+```
+:opacity=0.5
+```
+- `threshold` - (optional) config with threshold values and colors, eg:
+```
+:threshold={
+  values: {
+    upperValue: 60,
+    lowerValue: 20
+  },
+  colors: {
+    high: 'red',
+    medium: 'yellow',
+    low: 'green'
+  }
+}
+```
+Result:
 
+![image](https://user-images.githubusercontent.com/39257464/70325419-fb39d180-1842-11ea-832c-01b25be6c3fa.png)
+
+- `valueFormat` - (optional) format of item`s values, 'persentage' or 'absolute', eg:
+```
+:valueFormat='abosule'
+```
 ## Development
 
 ### Project setup

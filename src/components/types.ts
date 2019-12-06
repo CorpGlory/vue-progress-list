@@ -1,3 +1,8 @@
+export enum ValueFormat {
+  ABSOLUTE = 'absolute',
+  PERCENTAGE = 'percentage'
+};
+
 export type Item = {
   title: string,
   value: number,
@@ -14,8 +19,20 @@ export type Thresholds = {
   lowerValue: number
 }
 
-export type ThresholdConfig = {
-  lowerColor: string,
-  middleColor: string,
-  upperColor: string
+export type ThresholdColors = {
+  low: string,
+  medium: string,
+  high: string
+}
+
+export type Threshold = {
+  values: {
+    upperValue: number,
+    lowerValue: number
+  },
+  colors: {
+    low: string,
+    medium: string,
+    high: string
+  }
 }

@@ -4,23 +4,29 @@
     <div class="list-item-content">
       <div
         v-bind:style="{
-          width: progress + '%',
+          width: percentageProgress,
           backgroundColor: getItemColor(item),
-          opacity: config.opacity
+          opacity: barOpacity
         }"
         class="progress-bar-line"
       />
       <span class="list-item-value progress-bar-value">
-        {{ progress }}%
+        {{ progress }}
       </span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Item, Config, Thresholds, ThresholdConfig } from './types';
+import { ValueFormat, Item, Config, Threshold, Thresholds, ThresholdColors } from './types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+
+const DEFAULT_THRESHOLD_COLORS = {
+  low: 'green',
+  medium: 'orange',
+  high: 'red'
+}
 
 @Component
 export default class ProgressItem extends Vue {
@@ -31,26 +37,67 @@ export default class ProgressItem extends Vue {
   @Prop({ required: true })
   config!: Config;
 
-  @Prop({required: false})
+  @Prop({ required: false })
+  maxValue!: number;
+
+  @Prop({ required: false, default: () => {} })
+  threshold!: Threshold;
+
+  @Prop({ required: false })
   thresholds!: Thresholds;
 
-  @Prop({required: false})
-  thresholdConfig!: ThresholdConfig;
+  @Prop({ required: false, default: () => DEFAULT_THRESHOLD_COLORS })
+  thresholdColors!: ThresholdColors;
 
-  get progress(): number {
-    return 100 * this.item.value / this.config.maxValue;
+  @Prop({ required: false })
+  opacity!: number;
+
+  @Prop({ required: false, default: ValueFormat.PERCENTAGE })
+  valueFormat!: ValueFormat;
+
+  get progress(): string {
+    if(this.valueFormat === ValueFormat.PERCENTAGE) {
+      return this.percentageProgress;
+    }
+    return this.item.value.toString();
+  }
+
+  get percentageProgress(): string {
+    return 100 * this.item.value / this.itemMaxValue + '%';
+  }
+
+  get itemMaxValue(): number {
+    return this.maxValue || this.config.maxValue
+  }
+
+  get barOpacity(): number {
+    return this.opacity || this.config.opacity;
+  }
+
+  get thresholdValues(): Thresholds {
+    if(this.threshold !== undefined && this.threshold.values !==undefined) {
+      return this.threshold.values;
+    }
+    return this.thresholds;
+  }
+
+  get thresholdItemColors(): ThresholdColors {
+    if(this.threshold !== undefined && this.threshold.colors !==undefined) {
+      return this.threshold.colors;
+    }
+    return this.thresholdColors;
   }
 
   getItemColor(item: Item): string {
-    if(this.thresholds === undefined) {
+    if(this.thresholdValues === undefined) {
       return item.backgroundColor;
     } else {
-      if(item.value < this.thresholds.lowerValue){
-        return this.thresholdConfig.lowerColor;
-      } else if(item.value >= this.thresholds.lowerValue && item.value <= this.thresholds.upperValue) {
-        return this.thresholdConfig.middleColor;
-      } else if(item.value > this.thresholds.upperValue) {
-        return this.thresholdConfig.upperColor;
+      if(item.value < this.thresholdValues.lowerValue){
+        return this.thresholdItemColors.low;
+      } else if(item.value >= this.thresholdValues.lowerValue && item.value <= this.thresholdValues.upperValue) {
+        return this.thresholdItemColors.medium;
+      } else if(item.value > this.thresholdValues.upperValue) {
+        return this.thresholdItemColors.high;
       } else {
         throw new Error('Cant get item color');
       }
