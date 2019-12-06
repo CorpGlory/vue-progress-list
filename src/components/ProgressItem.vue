@@ -4,7 +4,7 @@
     <div class="list-item-content">
       <div
         v-bind:style="{
-          width: percentageProgress,
+          width: barWidth,
           backgroundColor: getItemColor(item),
           opacity: barOpacity
         }"
@@ -26,7 +26,7 @@ const DEFAULT_THRESHOLD_COLORS = {
   low: 'green',
   medium: 'orange',
   high: 'red'
-}
+};
 
 @Component
 export default class ProgressItem extends Vue {
@@ -57,12 +57,12 @@ export default class ProgressItem extends Vue {
 
   get progress(): string {
     if(this.valueFormat === ValueFormat.PERCENTAGE) {
-      return this.percentageProgress;
+      return this.barWidth;
     }
     return this.item.value.toString();
   }
 
-  get percentageProgress(): string {
+  get barWidth(): string {
     return 100 * this.item.value / this.itemMaxValue + '%';
   }
 
