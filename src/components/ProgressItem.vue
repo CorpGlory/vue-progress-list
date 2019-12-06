@@ -4,23 +4,29 @@
     <div class="list-item-content">
       <div
         v-bind:style="{
-          width: progress + '%',
+          width: barWidth,
           backgroundColor: getItemColor(item),
-          opacity: config.opacity
+          opacity: barOpacity
         }"
         class="progress-bar-line"
       />
       <span class="list-item-value progress-bar-value">
-        {{ progress }}%
+        {{ progress }}
       </span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Item, Config, Thresholds, ThresholdConfig } from './types';
+import { ValueFormat, Item, Stops, StopValues, StopColors } from './types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+
+const DEFAULT_STOP_COLORS = {
+  low: 'green',
+  medium: 'orange',
+  high: 'red'
+};
 
 @Component
 export default class ProgressItem extends Vue {
@@ -28,29 +34,59 @@ export default class ProgressItem extends Vue {
   @Prop({ required: true })
   item!: Item;
 
-  @Prop({ required: true })
-  config!: Config;
+  @Prop({ required: false })
+  maxValue!: number;
 
-  @Prop({required: false})
-  thresholds!: Thresholds;
+  @Prop({ required: false })
+  stops!: Stops;
 
-  @Prop({required: false})
-  thresholdConfig!: ThresholdConfig;
+  @Prop({ required: false })
+  opacity!: number;
 
-  get progress(): number {
-    return 100 * this.item.value / this.config.maxValue;
+  @Prop({ required: false, default: ValueFormat.PERCENTAGE })
+  valueFormat!: ValueFormat;
+
+  get progress(): string {
+    if(this.valueFormat === ValueFormat.PERCENTAGE) {
+      return this.barWidth;
+    }
+    return this.item.value.toString();
+  }
+
+  get barWidth(): string {
+    return 100 * this.item.value / this.itemMaxValue + '%';
+  }
+
+  get itemMaxValue(): number {
+    return this.maxValue
+  }
+
+  get barOpacity(): number {
+    return this.opacity
+  }
+
+  get stopValues(): StopValues {
+    return this.stops.values;
+  }
+
+  get stopItemColors(): StopColors {
+    if(this.stops !== undefined && this.stops.colors !== undefined) {
+      return this.stops.colors;
+    } else {
+      return DEFAULT_STOP_COLORS
+    }
   }
 
   getItemColor(item: Item): string {
-    if(this.thresholds === undefined) {
+    if(this.stops === undefined || this.stopValues === undefined) {
       return item.backgroundColor;
     } else {
-      if(item.value < this.thresholds.lowerValue){
-        return this.thresholdConfig.lowerColor;
-      } else if(item.value >= this.thresholds.lowerValue && item.value <= this.thresholds.upperValue) {
-        return this.thresholdConfig.middleColor;
-      } else if(item.value > this.thresholds.upperValue) {
-        return this.thresholdConfig.upperColor;
+      if(item.value < this.stopValues.lowerValue){
+        return this.stopItemColors.low;
+      } else if(item.value >= this.stopValues.lowerValue && item.value <= this.stopValues.upperValue) {
+        return this.stopItemColors.medium;
+      } else if(item.value > this.stopValues.upperValue) {
+        return this.stopItemColors.high;
       } else {
         throw new Error('Cant get item color');
       }
