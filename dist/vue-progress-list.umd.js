@@ -4718,16 +4718,16 @@ function __importDefault(mod) {
     return (mod && mod.__esModule) ? mod : { default: mod };
 }
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"52302ddc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProgressItem.vue?vue&type=template&id=7a580116&
-var ProgressItemvue_type_template_id_7a580116_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"list-item progress-item"},[_c('div',{staticClass:"list-item-title"},[_vm._v(" "+_vm._s(_vm.item.title)+" ")]),_c('div',{staticClass:"list-item-content"},[_c('div',{staticClass:"progress-bar-line",style:({
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"52302ddc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProgressItem.vue?vue&type=template&id=f534050e&
+var ProgressItemvue_type_template_id_f534050e_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"list-item progress-item"},[_c('div',{staticClass:"list-item-title"},[_vm._v(" "+_vm._s(_vm.item.title)+" ")]),_c('div',{staticClass:"list-item-content"},[_c('div',{staticClass:"progress-bar-line",style:({
         width: _vm.barWidth,
         backgroundColor: _vm.getItemColor(_vm.item),
         opacity: _vm.barOpacity
       })}),_c('span',{staticClass:"list-item-value progress-bar-value"},[_vm._v(" "+_vm._s(_vm.progress)+" ")])])])}
-var ProgressItemvue_type_template_id_7a580116_staticRenderFns = []
+var ProgressItemvue_type_template_id_f534050e_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ProgressItem.vue?vue&type=template&id=7a580116&
+// CONCATENATED MODULE: ./src/components/ProgressItem.vue?vue&type=template&id=f534050e&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.iterator.js
 var es_array_iterator = __webpack_require__("e260");
@@ -5335,7 +5335,7 @@ function (_Vue) {
   _createClass(ProgressItem, [{
     key: "getItemColor",
     value: function getItemColor(item) {
-      if (this.stopValues === undefined) {
+      if (this.stops === undefined || this.stopValues === undefined) {
         return item.backgroundColor;
       } else {
         if (item.value < this.stopValues.lowerValue) {
@@ -5401,8 +5401,7 @@ __decorate([Prop({
 })], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "maxValue", void 0);
 
 __decorate([Prop({
-  required: false,
-  default: function _default() {}
+  required: false
 })], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "stops", void 0);
 
 __decorate([Prop({
@@ -5527,8 +5526,8 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_ProgressItemvue_type_script_lang_ts_,
-  ProgressItemvue_type_template_id_7a580116_render,
-  ProgressItemvue_type_template_id_7a580116_staticRenderFns,
+  ProgressItemvue_type_template_id_f534050e_render,
+  ProgressItemvue_type_template_id_f534050e_staticRenderFns,
   false,
   null,
   null,

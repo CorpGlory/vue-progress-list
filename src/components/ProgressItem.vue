@@ -37,7 +37,7 @@ export default class ProgressItem extends Vue {
   @Prop({ required: false })
   maxValue!: number;
 
-  @Prop({ required: false, default: () => {} })
+  @Prop({ required: false })
   stops!: Stops;
 
   @Prop({ required: false })
@@ -78,7 +78,7 @@ export default class ProgressItem extends Vue {
   }
 
   getItemColor(item: Item): string {
-    if(this.stopValues === undefined) {
+    if(this.stops === undefined || this.stopValues === undefined) {
       return item.backgroundColor;
     } else {
       if(item.value < this.stopValues.lowerValue){
