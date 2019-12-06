@@ -65,7 +65,7 @@ Result:
 
 - `valueFormat` - (optional) format of item`s values, 'persentage' or 'absolute', eg:
 ```js
-:valueFormat='abosule'
+:valueFormat='absolute'
 ```
 ## Development
 
