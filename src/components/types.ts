@@ -9,30 +9,18 @@ export type Item = {
   backgroundColor: string
 }
 
-export type Config = {
-  maxValue: number,
-  opacity: number
-}
-
-export type Thresholds = {
+export type StopValues = {
   upperValue: number,
   lowerValue: number
 }
 
-export type ThresholdColors = {
+export type StopColors = {
   low: string,
   medium: string,
   high: string
 }
 
-export type Threshold = {
-  values: {
-    upperValue: number,
-    lowerValue: number
-  },
-  colors: {
-    low: string,
-    medium: string,
-    high: string
-  }
+export type Stops = {
+  values: StopValues,
+  colors: StopColors
 }

@@ -18,11 +18,11 @@
 </template>
 
 <script lang="ts">
-import { ValueFormat, Item, Config, Threshold, Thresholds, ThresholdColors } from './types';
+import { ValueFormat, Item, Stops, StopValues, StopColors } from './types';
 
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
-const DEFAULT_THRESHOLD_COLORS = {
+const DEFAULT_STOP_COLORS = {
   low: 'green',
   medium: 'orange',
   high: 'red'
@@ -34,20 +34,11 @@ export default class ProgressItem extends Vue {
   @Prop({ required: true })
   item!: Item;
 
-  @Prop({ required: true })
-  config!: Config;
-
   @Prop({ required: false })
   maxValue!: number;
 
   @Prop({ required: false, default: () => {} })
-  threshold!: Threshold;
-
-  @Prop({ required: false })
-  thresholds!: Thresholds;
-
-  @Prop({ required: false, default: () => DEFAULT_THRESHOLD_COLORS })
-  thresholdColors!: ThresholdColors;
+  stops!: Stops;
 
   @Prop({ required: false })
   opacity!: number;
@@ -67,37 +58,35 @@ export default class ProgressItem extends Vue {
   }
 
   get itemMaxValue(): number {
-    return this.maxValue || this.config.maxValue
+    return this.maxValue
   }
 
   get barOpacity(): number {
-    return this.opacity || this.config.opacity;
+    return this.opacity
   }
 
-  get thresholdValues(): Thresholds {
-    if(this.threshold !== undefined && this.threshold.values !==undefined) {
-      return this.threshold.values;
-    }
-    return this.thresholds;
+  get stopValues(): StopValues {
+    return this.stops.values;
   }
 
-  get thresholdItemColors(): ThresholdColors {
-    if(this.threshold !== undefined && this.threshold.colors !==undefined) {
-      return this.threshold.colors;
+  get stopItemColors(): StopColors {
+    if(this.stops !== undefined && this.stops.colors !== undefined) {
+      return this.stops.colors;
+    } else {
+      return DEFAULT_STOP_COLORS
     }
-    return this.thresholdColors;
   }
 
   getItemColor(item: Item): string {
-    if(this.thresholdValues === undefined) {
+    if(this.stopValues === undefined) {
       return item.backgroundColor;
     } else {
-      if(item.value < this.thresholdValues.lowerValue){
-        return this.thresholdItemColors.low;
-      } else if(item.value >= this.thresholdValues.lowerValue && item.value <= this.thresholdValues.upperValue) {
-        return this.thresholdItemColors.medium;
-      } else if(item.value > this.thresholdValues.upperValue) {
-        return this.thresholdItemColors.high;
+      if(item.value < this.stopValues.lowerValue){
+        return this.stopItemColors.low;
+      } else if(item.value >= this.stopValues.lowerValue && item.value <= this.stopValues.upperValue) {
+        return this.stopItemColors.medium;
+      } else if(item.value > this.stopValues.upperValue) {
+        return this.stopItemColors.high;
       } else {
         throw new Error('Cant get item color');
       }

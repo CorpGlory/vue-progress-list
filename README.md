@@ -45,9 +45,9 @@ Result:
 ```js
 :opacity=0.5
 ```
-- `threshold` - (optional) config with threshold values and colors, eg:
+- `stops` - (optional) config with stop values and colors, eg:
 ```js
-:threshold={
+:stops={
   values: {
     upperValue: 60,
     lowerValue: 20

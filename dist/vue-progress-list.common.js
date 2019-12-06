@@ -4405,12 +4405,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"52302ddc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProgressList.vue?vue&type=template&id=1dfed3dc&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"progress-list-panel"}},[_c('div',{staticClass:"table-panel-scroll"},_vm._l((_vm.items),function(item){return _c('div',{key:item.title,staticClass:"center"},[_c('progress-item',{attrs:{"item":item,"config":_vm.config,"threshold":_vm.threshold,"thresholds":_vm.thresholds,"thresholdColors":_vm.thresholdColors,"opacity":_vm.opacity,"maxValue":_vm.maxValue,"valueFormat":_vm.valueFormat}})],1)}),0)])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"52302ddc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProgressList.vue?vue&type=template&id=012c9d7a&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{attrs:{"id":"progress-list-panel"}},[_c('div',{staticClass:"table-panel-scroll"},_vm._l((_vm.items),function(item){return _c('div',{key:item.title,staticClass:"center"},[_c('progress-item',{attrs:{"item":item,"maxValue":_vm.maxValue,"stops":_vm.stops,"opacity":_vm.opacity,"valueFormat":_vm.valueFormat}})],1)}),0)])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ProgressList.vue?vue&type=template&id=1dfed3dc&
+// CONCATENATED MODULE: ./src/components/ProgressList.vue?vue&type=template&id=012c9d7a&
 
 // CONCATENATED MODULE: ./node_modules/@babel/runtime-corejs3/helpers/esm/classCallCheck.js
 function _classCallCheck(instance, Constructor) {
@@ -4709,16 +4709,16 @@ function __importDefault(mod) {
     return (mod && mod.__esModule) ? mod : { default: mod };
 }
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"52302ddc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProgressItem.vue?vue&type=template&id=baf24df8&
-var ProgressItemvue_type_template_id_baf24df8_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"list-item progress-item"},[_c('div',{staticClass:"list-item-title"},[_vm._v(" "+_vm._s(_vm.item.title)+" ")]),_c('div',{staticClass:"list-item-content"},[_c('div',{staticClass:"progress-bar-line",style:({
-        width: _vm.percentageProgress,
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"52302ddc-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/ProgressItem.vue?vue&type=template&id=7a580116&
+var ProgressItemvue_type_template_id_7a580116_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"list-item progress-item"},[_c('div',{staticClass:"list-item-title"},[_vm._v(" "+_vm._s(_vm.item.title)+" ")]),_c('div',{staticClass:"list-item-content"},[_c('div',{staticClass:"progress-bar-line",style:({
+        width: _vm.barWidth,
         backgroundColor: _vm.getItemColor(_vm.item),
         opacity: _vm.barOpacity
       })}),_c('span',{staticClass:"list-item-value progress-bar-value"},[_vm._v(" "+_vm._s(_vm.progress)+" ")])])])}
-var ProgressItemvue_type_template_id_baf24df8_staticRenderFns = []
+var ProgressItemvue_type_template_id_7a580116_staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/ProgressItem.vue?vue&type=template&id=baf24df8&
+// CONCATENATED MODULE: ./src/components/ProgressItem.vue?vue&type=template&id=7a580116&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.iterator.js
 var es_array_iterator = __webpack_require__("e260");
@@ -5306,7 +5306,7 @@ function isPromise(obj) {
 
 
 
-var DEFAULT_THRESHOLD_COLORS = {
+var DEFAULT_STOP_COLORS = {
   low: 'green',
   medium: 'orange',
   high: 'red'
@@ -5326,15 +5326,15 @@ function (_Vue) {
   _createClass(ProgressItem, [{
     key: "getItemColor",
     value: function getItemColor(item) {
-      if (this.thresholdValues === undefined) {
+      if (this.stopValues === undefined) {
         return item.backgroundColor;
       } else {
-        if (item.value < this.thresholdValues.lowerValue) {
-          return this.thresholdItemColors.low;
-        } else if (item.value >= this.thresholdValues.lowerValue && item.value <= this.thresholdValues.upperValue) {
-          return this.thresholdItemColors.medium;
-        } else if (item.value > this.thresholdValues.upperValue) {
-          return this.thresholdItemColors.high;
+        if (item.value < this.stopValues.lowerValue) {
+          return this.stopItemColors.low;
+        } else if (item.value >= this.stopValues.lowerValue && item.value <= this.stopValues.upperValue) {
+          return this.stopItemColors.medium;
+        } else if (item.value > this.stopValues.upperValue) {
+          return this.stopItemColors.high;
         } else {
           throw new Error('Cant get item color');
         }
@@ -5344,43 +5344,39 @@ function (_Vue) {
     key: "progress",
     get: function get() {
       if (this.valueFormat === ValueFormat.PERCENTAGE) {
-        return this.percentageProgress;
+        return this.barWidth;
       }
 
       return this.item.value.toString();
     }
   }, {
-    key: "percentageProgress",
+    key: "barWidth",
     get: function get() {
       return 100 * this.item.value / this.itemMaxValue + '%';
     }
   }, {
     key: "itemMaxValue",
     get: function get() {
-      return this.maxValue || this.config.maxValue;
+      return this.maxValue;
     }
   }, {
     key: "barOpacity",
     get: function get() {
-      return this.opacity || this.config.opacity;
+      return this.opacity;
     }
   }, {
-    key: "thresholdValues",
+    key: "stopValues",
     get: function get() {
-      if (this.threshold !== undefined && this.threshold.values !== undefined) {
-        return this.threshold.values;
-      }
-
-      return this.thresholds;
+      return this.stops.values;
     }
   }, {
-    key: "thresholdItemColors",
+    key: "stopItemColors",
     get: function get() {
-      if (this.threshold !== undefined && this.threshold.colors !== undefined) {
-        return this.threshold.colors;
+      if (this.stops !== undefined && this.stops.colors !== undefined) {
+        return this.stops.colors;
+      } else {
+        return DEFAULT_STOP_COLORS;
       }
-
-      return this.thresholdColors;
     }
   }]);
 
@@ -5392,28 +5388,13 @@ __decorate([Prop({
 })], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "item", void 0);
 
 __decorate([Prop({
-  required: true
-})], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "config", void 0);
-
-__decorate([Prop({
   required: false
 })], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "maxValue", void 0);
 
 __decorate([Prop({
   required: false,
   default: function _default() {}
-})], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "threshold", void 0);
-
-__decorate([Prop({
-  required: false
-})], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "thresholds", void 0);
-
-__decorate([Prop({
-  required: false,
-  default: function _default() {
-    return DEFAULT_THRESHOLD_COLORS;
-  }
-})], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "thresholdColors", void 0);
+})], ProgressItemvue_type_script_lang_ts_ProgressItem.prototype, "stops", void 0);
 
 __decorate([Prop({
   required: false
@@ -5537,8 +5518,8 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_ProgressItemvue_type_script_lang_ts_,
-  ProgressItemvue_type_template_id_baf24df8_render,
-  ProgressItemvue_type_template_id_baf24df8_staticRenderFns,
+  ProgressItemvue_type_template_id_7a580116_render,
+  ProgressItemvue_type_template_id_7a580116_staticRenderFns,
   false,
   null,
   null,
@@ -5576,10 +5557,6 @@ __decorate([Prop({
 
 __decorate([Prop({
   required: true
-})], ProgressListvue_type_script_lang_ts_ProgressListPanel.prototype, "config", void 0);
-
-__decorate([Prop({
-  required: false
 })], ProgressListvue_type_script_lang_ts_ProgressListPanel.prototype, "maxValue", void 0);
 
 __decorate([Prop({
@@ -5588,19 +5565,11 @@ __decorate([Prop({
 
 __decorate([Prop({
   required: false
-})], ProgressListvue_type_script_lang_ts_ProgressListPanel.prototype, "threshold", void 0);
-
-__decorate([Prop({
-  required: false
-})], ProgressListvue_type_script_lang_ts_ProgressListPanel.prototype, "thresholds", void 0);
+})], ProgressListvue_type_script_lang_ts_ProgressListPanel.prototype, "stops", void 0);
 
 __decorate([Prop({
   required: false
 })], ProgressListvue_type_script_lang_ts_ProgressListPanel.prototype, "valueFormat", void 0);
-
-__decorate([Prop({
-  required: false
-})], ProgressListvue_type_script_lang_ts_ProgressListPanel.prototype, "thresholdColors", void 0);
 
 ProgressListvue_type_script_lang_ts_ProgressListPanel = __decorate([vue_class_component_esm({
   components: {
